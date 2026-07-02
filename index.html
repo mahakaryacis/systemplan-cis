@@ -10,66 +10,467 @@
   <link href='https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800;900&family=Orbitron:wght@500;700;900&display=swap' rel='stylesheet'/>
 
   <style>
+    /* ==================================================================
+       GLOBAL STYLES & CYBERPUNK THEME
+    ================================================================== */
     :root {
-      --cyan: #00f2fe; --gold: #f1c40f; --green: #2ecc71; --red: #e74c3c;
-      --purple: #9b59b6; --dark-bg: #0b0f19; --panel-bg: #162032;
-      --border-color: #1e293b; --text-main: #e2e8f0; --text-muted: #94a3b8;
+      --cyan: #00f2fe;
+      --gold: #f1c40f;
+      --green: #2ecc71;
+      --red: #e74c3c;
+      --purple: #9b59b6;
+      --dark-bg: #0b0f19;
+      --panel-bg: #162032;
+      --border-color: #1e293b;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
     }
-    body { margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark-bg); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+
+    body { margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark-bg); color: var(--text-main); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     * { box-sizing: border-box; outline: none; }
+    a { text-decoration: none; }
+
+    @keyframes pulseGlow { 0% { box-shadow: 0 0 10px rgba(0,242,254,0.3); } 50% { box-shadow: 0 0 25px rgba(0,242,254,0.7); } 100% { box-shadow: 0 0 10px rgba(0,242,254,0.3); } }
+    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+    @keyframes slideInUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* ==================================================================
+       HERO SECTION 
+    ================================================================== */
+    .hero { 
+      background: radial-gradient(circle at center top, #1e293b, #0b0f19);
+      border-bottom: 2px solid var(--cyan);
+      padding: 50px 20px 40px 20px; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
     
-    .hero { background: radial-gradient(circle at center top, #1e293b, #0b0f19); border-bottom: 2px solid var(--cyan); padding: 50px 20px; text-align: center; }
-    .logo-container { width: 100px; height: 100px; border-radius: 50%; background: #fff; padding: 4px; border: 3px solid var(--cyan); margin: 0 auto 15px; }
-    .logo-container img { width: 100%; border-radius: 50%; }
-    .hero h1 { font-family: 'Orbitron'; font-size: 2.2rem; color: #fff; margin: 0; }
+    .logo-container {
+      width: 100px; height: 100px; border-radius: 50%; background: #fff; padding: 4px;
+      border: 3px solid var(--cyan); animation: pulseGlow 3s infinite, float 4s ease-in-out infinite;
+    }
+    .logo-container img { width: 100%; height: auto; border-radius: 50%; }
     
+    .hero h1 { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 900; color: #fff; margin: 0; letter-spacing: 2px; text-shadow: 0 0 15px rgba(0,242,254,0.5); }
+    .hero p { color: var(--text-muted); font-size: 1rem; margin: 5px 0 0 0; }
+    .badge-beta { background: rgba(241,196,15,0.1); border: 1px dashed var(--gold); color: var(--gold); padding: 5px 15px; border-radius: 8px; font-size: 0.75rem; font-weight: 800; font-family: 'Orbitron'; letter-spacing: 1px; }
+
+    /* ==================================================================
+       MAIN MENU (GRID STYLE)
+    ================================================================== */
     .container { max-width: 800px; margin: 0 auto; padding: 30px 20px; }
-    .section-title { text-align: center; font-family: 'Orbitron'; color: var(--gold); margin-bottom: 25px; font-size: 1.2rem; text-transform: uppercase; }
+    .section-title { text-align: center; font-family: 'Orbitron'; color: var(--gold); margin-bottom: 25px; font-size: 1.2rem; letter-spacing: 1px; text-transform: uppercase; }
+
     .grid-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
     
-    .menu-card { background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 15px; padding: 25px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; transition: 0.3s; }
-    .menu-card:hover { transform: translateY(-5px); border-color: var(--cyan); }
-    .menu-icon { font-size: 2.5rem; margin-bottom: 15px; }
-    .menu-card h3 { margin: 0 0 8px 0; font-family: 'Orbitron'; font-size: 1rem; text-transform: uppercase; }
+    .menu-card { 
+      background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 15px; padding: 25px 20px; 
+      display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3); position: relative; overflow: hidden;
+    }
+    .menu-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--cyan); transition: 0.3s; }
+    .menu-card:hover { transform: translateY(-5px); border-color: #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    .menu-card:hover::before { width: 100%; opacity: 0.1; }
+    
+    .menu-icon { font-size: 2.5rem; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+    .menu-card h3 { margin: 0 0 8px 0; font-family: 'Orbitron'; font-size: 1rem; color: #fff; letter-spacing: 0.5px; text-transform: uppercase; }
+    .menu-card p { margin: 0; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
 
-    .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(11,15,25,0.95); z-index:9999; display:none; flex-direction:column; overflow-y:auto; }
-    .modal-header { background: #0f172a; padding: 20px; border-bottom: 2px solid var(--cyan); display: flex; justify-content: space-between; align-items: center; }
-    .modal-body { padding: 30px 20px; max-width: 800px; margin: 0 auto; }
-    .step-list { list-style: none; padding: 0; }
-    .step-list li { background: var(--panel-bg); padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; gap: 15px; }
-    .step-num { color: var(--gold); font-weight: 900; font-family: 'Orbitron'; }
+    /* Specific Colors */
+    .mc-1::before { background: var(--cyan); } .mc-1 .menu-icon { color: var(--cyan); }
+    .mc-2::before { background: var(--gold); } .mc-2 .menu-icon { color: var(--gold); }
+    .mc-3::before { background: var(--green); } .mc-3 .menu-icon { color: var(--green); }
+    .mc-4::before { background: var(--purple); } .mc-4 .menu-icon { color: var(--purple); }
+    .mc-5::before { background: var(--red); } .mc-5 .menu-icon { color: var(--red); }
+    .mc-6::before { background: #3498db; } .mc-6 .menu-icon { color: #3498db; }
+
+    /* ==================================================================
+       FULLSCREEN MODAL (POPUP LAYAR)
+    ================================================================== */
+    .modal-overlay { 
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+      background: rgba(11, 15, 25, 0.95); z-index: 9999; display: none; 
+      flex-direction: column; overflow-y: auto; backdrop-filter: blur(8px);
+    }
+    
+    .modal-header {
+      background: #0f172a; padding: 20px; border-bottom: 2px solid var(--cyan); 
+      display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
+    .modal-header h2 { margin: 0; font-family: 'Orbitron'; font-size: 1.2rem; color: #fff; display: flex; align-items: center; gap: 10px; }
+    
+    .btn-close { 
+      background: rgba(231, 76, 60, 0.1); border: 1px solid var(--red); color: var(--red); 
+      width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; 
+      cursor: pointer; transition: 0.2s; 
+    }
+    .btn-close:hover { background: var(--red); color: #fff; transform: rotate(90deg); }
+    
+    .modal-body { padding: 30px 20px; max-width: 800px; margin: 0 auto; width: 100%; animation: slideInUp 0.4s ease-out; }
+    
+    /* ==================================================================
+       TYPOGRAPHY & COMPONENTS IN MODAL
+    ================================================================== */
+    .modal-body h4 { color: var(--cyan); font-family: 'Orbitron'; font-size: 1.1rem; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; margin-top: 30px; }
+    .modal-body h4:first-child { margin-top: 0; }
+    .modal-body p { color: #cbd5e1; font-size: 0.95rem; line-height: 1.7; margin-bottom: 15px; }
+    
+    .highlight-box { background: linear-gradient(135deg, rgba(0,242,254,0.05), rgba(0,0,0,0)); border-left: 4px solid var(--cyan); padding: 20px; margin: 20px 0; border-radius: 0 12px 12px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); border-right: 1px solid var(--border-color);}
+    .warning-box { background: rgba(231,76,60,0.05); border-left: 4px solid var(--red); padding: 20px; margin: 20px 0; border-radius: 0 12px 12px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); border-right: 1px solid var(--border-color);}
+    
+    .step-list { list-style: none; padding: 0; margin: 20px 0; }
+    .step-list li { background: var(--panel-bg); border: 1px solid var(--border-color); margin-bottom: 10px; padding: 15px 20px; border-radius: 10px; display: flex; align-items: flex-start; gap: 15px; }
+    .step-list li .step-num { background: var(--dark-bg); color: var(--gold); font-family: 'Orbitron'; font-weight: 900; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--gold); flex-shrink: 0; }
+    .step-list li .step-text { color: #e2e8f0; font-size: 0.9rem; margin-top: 5px;}
+
+    .image-placeholder { background: var(--dark-bg); border: 1px dashed #334155; padding: 30px; text-align: center; border-radius: 12px; margin: 20px 0; color: #64748b; font-size: 0.85rem; }
+
   </style>
 </head>
+
 <body>
+
+  <!-- HERO HEADER -->
   <header class='hero'>
-    <div class='logo-container'><img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjsWDBQtB22Em_aRXK1HeIp9_t9QiB_dLrz4H0GDVYzb1LGOJJxEeZjjxFY9cpXD4-n-DEd2ycC4Voqixqhvei_SVGeceVpoxT6oSUJZ9XfRFPkQdlCDHcl6p4rykNNZDcNdJ7FaPzqcHi-2j00jcM7Y_zn76nLR0BOLQ3yd0kRUupPc4f9c5uZqRN5FGP/w400-h400/CIS%20logo.png'/></div>
-    <h1>MANUAL BOOK CIS</h1>
+    <div class='hero-content'>
+      <div class='badge-beta'>BETA PROTOCOL ACTIVE</div>
+      <div class='logo-container'>
+        <img alt='CIS Logo' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjsWDBQtB22Em_aRXK1HeIp9_t9QiB_dLrz4H0GDVYzb1LGOJJxEeZjjxFY9cpXD4-n-DEd2ycC4Voqixqhvei_SVGeceVpoxT6oSUJZ9XfRFPkQdlCDHcl6p4rykNNZDcNdJ7FaPzqcHi-2j00jcM7Y_zn76nLR0BOLQ3yd0kRUupPc4f9c5uZqRN5FGP/w400-h400/CIS%20logo.png'/>
+      </div>
+      <div>
+        <h1>MANUAL BOOK CIS</h1>
+        <p>Charity Integration System - Ekosistem Miner P2P</p>
+      </div>
+    </div>
   </header>
+
+  <!-- MAIN MENU GRID -->
   <main class='container'>
     <div class='section-title'>PILIH MODUL PEMBELAJARAN</div>
     <div class='grid-menu'>
-      <div class='menu-card' onclick='openModal("modal-7")'>
-        <i class='fa-solid fa-people-arrows menu-icon' style='color:#e84393;'></i>
-        <h3>7. Taktik Arisan Estafet</h3>
-        <p>Merubah modal kecil menjadi mesin penghasil uang lewat sistem likuiditas P2P Booster.</p>
+      
+      <div class='menu-card mc-1' onclick='openModal("modal-1")'>
+        <i class='fa-solid fa-globe menu-icon'></i>
+        <h3>1. Pengenalan CIS</h3>
+        <p>Apa itu CIS? Mengapa sistem P2P ini diklaim mustahil mengalami Scam/Penipuan.</p>
       </div>
+
+      <div class='menu-card mc-2' onclick='openModal("modal-2")'>
+        <i class='fa-solid fa-gauge-high menu-icon'></i>
+        <h3>2. Bedah Dashboard Utama</h3>
+        <p>Tutorial lengkap penggunaan Engine Mining, Indikator Harga, dan Navigasi Dasar.</p>
+      </div>
+
+      <div class='menu-card mc-3' onclick='openModal("modal-3")'>
+        <i class='fa-solid fa-boxes-stacked menu-icon'></i>
+        <h3>3. Bedah 8 Menu Utama</h3>
+        <p>Penjelasan fungsi Aktivasi, Upgrade Speed, Wallet, hingga Network Tree.</p>
+      </div>
+
+      <div class='menu-card mc-4' onclick='openModal("modal-4")'>
+        <i class='fa-solid fa-money-bill-transfer menu-icon'></i>
+        <h3>4. Liquidasi & Marketplace</h3>
+        <p>Rahasia merubah angka virtual menjadi Uang Tunai nyata lewat Pasar P2P.</p>
+      </div>
+
+      <div class='menu-card mc-6' onclick='openModal("modal-5")'>
+        <i class='fa-solid fa-chess-knight menu-icon'></i>
+        <h3>5. Taktik Top 10 Sultan</h3>
+        <p>Strategi merajai jaringan, menjadi pengepul, dan meraup untung sebagai Leader.</p>
+      </div>
+
+      <div class='menu-card mc-5' onclick='openModal("modal-6")'>
+        <i class='fa-solid fa-shield-virus menu-icon'></i>
+        <h3>6. Sistem Keamanan & Risiko</h3>
+        <p>Aturan main, batas wajar, pengaman PIN, dan hal yang membuat Anda di Banned.</p>
+      </div>
+      <div class='menu-card mc-2' onclick='openModal("modal-7")'>
+        <i class='fa-solid fa-people-arrows menu-icon'></i>
+        <h3>7. Taktik Arisan Estafet</h3>
+        <p>Sistem sirkular pengubah Rp 100.000 menjadi daya beli raksasa (P2P Booster).</p>
+      </div>
+
     </div>
   </main>
 
-  <div id="modal-7" class="modal-overlay">
+  <!-- ======================================================================= -->
+  <!-- KUMPULAN MODAL (POPUP LAYAR) -->
+  <!-- ======================================================================= -->
+
+  <!-- MODAL 1: Pengenalan -->
+  <div id="modal-1" class="modal-overlay">
     <div class="modal-header">
-      <h2><i class="fa-solid fa-people-arrows" style="color:#e84393;"></i> Taktik Arisan Estafet</h2>
-      <button class="btn-close" onclick="closeModal('modal-7')"><i class="fa-solid fa-xmark"></i></button>
+      <h2><i class="fa-solid fa-globe" style="color:var(--cyan);"></i> Pengenalan CIS</h2>
+      <button class="btn-close" onclick="closeModal('modal-1')"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="modal-body">
-      <h4>Merubah Uang Rp 100.000 Menjadi Mesin Penghasil Rupiah!</h4>
-      <p>Strategi arisan ini memastikan likuiditas terjaga dan keuntungan berputar!</p>
+      <h4>Selamat Datang di Era Desentralisasi Mandiri!</h4>
+      <p><b>CIS (Charity Integration System)</b> bukanlah aplikasi judi, investasi bodong, atau skema ponzi di mana Anda menyetor uang ke Developer dan berharap dibayar kembali. CIS adalah sebuah Revolusi <i>Cloud Mining</i> terdesentralisasi.</p>
+      
+      <p>Sistem kami mensimulasikan penambangan aset kripto <b>VRSC (VerusCoin)</b> menggunakan daya komputasi virtual. Tugas Anda hanyalah menghidupkan mesin, dan menukar koin yang dihasilkan menjadi Rupiah.</p>
+
+      <div class="highlight-box">
+        <h3 style="color:var(--cyan); margin-top:0;"><i class="fa-solid fa-handshake-angle"></i> ZERO LIABILITY (Nol Beban Pusat)</h3>
+        <p style="margin-bottom:0;">Anda trauma dengan aplikasi penghasil uang yang tiba-tiba "Scam" atau Gagal Bayar? <br/><br/>
+        Di CIS, kejadian itu <b>MUSTAHIL TERJADI</b>. Mengapa? Karena Developer <b>TIDAK MENERIMA/MENAMPUNG</b> uang deposit Anda, dan Developer <b>TIDAK MEMBAYAR</b> withdraw Anda. Seluruh transaksi uang fisik berputar 100% antar member (Peer-to-Peer). Sistem hanya mengontrol sirkulasi "Emas Digital" (Token Kunci) di dalam ekosistem.</p>
+      </div>
+
+      <h4>Tiga Pilar CIS Protocol</h4>
+      <ul class="step-list">
+        <li>
+          <div class="step-num">1</div>
+          <div class="step-text"><b>Mining & Profit:</b> Menyediakan ekosistem yang mensimulasikan penambangan kripto (Hashrate) secara presisi dengan harga tukar (Live Price) yang real-time.</div>
+        </li>
+        <li>
+          <div class="step-num">2</div>
+          <div class="step-text"><b>P2P Economy:</b> Memberikan kebebasan komunitas untuk berdagang Token secara mandiri. Siapapun bisa menjadi "Bandar/Sultan" di wilayahnya sendiri.</div>
+        </li>
+        <li>
+          <div class="step-num">3</div>
+          <div class="step-text"><b>Charity (Amal):</b> Sebagian perputaran nilai di dalam ekosistem didedikasikan secara gotong-royong untuk misi kemanusiaan dan amal.</div>
+        </li>
+      </ul>
     </div>
   </div>
 
-  <script>
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+  <!-- MODAL 2: Bedah Dashboard -->
+  <div id="modal-2" class="modal-overlay">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-gauge-high" style="color:var(--gold);"></i> Bedah Dashboard Utama</h2>
+      <button class="btn-close" onclick="closeModal('modal-2')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <h4>Anatomi Ruang Kendali (Mainframe)</h4>
+      <p>Saat Anda berhasil login, Anda akan disajikan sebuah Dashboard bergaya militer yang menampilkan seluruh metrik aset Anda. Berikut penjelasan setiap bagiannya dari atas ke bawah:</p>
+
+      <ul class="step-list">
+        <li>
+          <div class="step-num"><i class="fa-solid fa-gem"></i></div>
+          <div class="step-text"><b>Tombol Claim Coins (1 HR)</b><br/>
+          Ini adalah fitur "Free Money". Anda bisa menekan tombol ini setiap 1 Jam (60 Menit) sekali untuk mendapatkan kucuran koin VRSC gratis. Jika sedang dalam masa <i>Happy Hour</i>, bonus klaim akan berlipat ganda!</div>
+        </li>
+        <li>
+          <div class="step-num"><i class="fa-brands fa-digital-ocean"></i></div>
+          <div class="step-text"><b>Indikator Saldo & Live Price</b><br/>
+          Di bawah tombol Claim, terdapat deretan angka besar. Itu adalah total Koin VRSC Anda. Di bawahnya terdapat <b>IDR Est</b> (Estimasi nilai uang jika dirupiahkan) dan <b>Live Price</b> (Harga patokan 1 VRSC saat ini di pasar).</div>
+        </li>
+        <li>
+          <div class="step-num"><i class="fa-solid fa-microchip"></i></div>
+          <div class="step-text"><b>Scrypt Mining Engine & Terminal Log</b><br/>
+          Ini adalah jantung utama penghasil pasif income Anda.
+          <ul style="padding-left:15px; margin-top:5px; color:#94a3b8;">
+            <li><b>Tombol START/STOP:</b> Gunakan tombol ini untuk menghidupkan atau mematikan mesin. Saat START, layar radar akan menyala dan angka VRSC Anda akan bertambah setiap detiknya.</li>
+            <li><b>Speed (D/s):</b> Kecepatan mesin Anda. Semakin besar angkanya, semakin cepat VRSC Anda terkumpul.</li>
+            <li><b>Terminal Log:</b> Layar hitam di bawah mesin yang memunculkan teks hijau. Ini menunjukkan mesin sedang melakukan <i>Scanning</i> dan sinkronisasi ke pusat secara Real-time.</li>
+          </ul>
+          </div>
+        </li>
+        <li>
+          <div class="step-num"><i class="fa-solid fa-chart-bar"></i></div>
+          <div class="step-text"><b>Bottom Stats (Statistik Global)</b><br/>
+          Di bagian paling bawah layar, Anda bisa memantau pergerakan ekosistem secara langsung: Berapa jumlah Miner yang sedang aktif (Online), Total User terdaftar, dan Total Koin yang sudah berhasil di-Withdraw (dicairkan) oleh komunitas.</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Bedah 8 Menu Utama -->
+  <div id="modal-3" class="modal-overlay">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-boxes-stacked" style="color:var(--green);"></i> Bedah 8 Menu Utama</h2>
+      <button class="btn-close" onclick="closeModal('modal-3')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <h4>Grid Navigasi Tengah</h4>
+      <p>Di bawah mesin penambang, terdapat 8 kotak menu yang mengatur seluruh transaksi dan manuver di akun Anda:</p>
+
+      <div class="highlight-box">
+        <ol style="margin:0; padding-left:15px; display:flex; flex-direction:column; gap:15px;">
+          <li><b style="color:var(--cyan);">Account Activation:</b><br/>Tempat Anda memasukkan Kode "Token REG" untuk mengaktifkan akun baru, atau memperpanjang masa aktif penambangan (Active Time Left) Anda.</li>
+          
+          <li><b style="color:var(--green);">Upgrade Speed:</b><br/>Tempat Anda menggunakan Kode "Token MINING" untuk memperbesar kapasitas kecepatan (Hashrate) mesin Anda.</li>
+          
+          <li><b style="color:var(--gold);">Wallet & Miner:</b><br/>Pusat Brankas Anda. Di sini Anda melakukan Exchange (Menukar koin VRSC menjadi Rupiah) dan melakukan Withdraw (Mencetak Rupiah menjadi Token untuk dijual). Di menu ini Anda juga bisa mentransfer stok Token Anda ke teman/downline.</li>
+          
+          <li><b style="color:#e84393;">Beli Token P2P:</b><br/>Pasar Bebas. Tempat Anda berbelanja Token (REG/MINING) langsung dari para "Sultan" tanpa campur tangan Admin.</li>
+          
+          <li><b style="color:var(--gold);">Top 10 Sultan:</b><br/>Papan Klasemen (Leaderboard) yang memajang 10 orang dengan stok Token terbanyak. Anda bisa menghubungi mereka via WhatsApp untuk membeli Token.</li>
+          
+          <li><b style="color:#3498db;">Network Tree:</b><br/>Peta Jaringan. Pantau siapa saja downline Anda, hubungi mereka via WA, dan lihat rincian bonus "Coin" pasif yang Anda dapatkan saat mereka melakukan transaksi.</li>
+          
+          <li><b style="color:#e67e22;">Harga Pasar:</b><br/>Tabel acuan harga jual-beli Token resmi agar pasar stabil dan tidak terjadi monopoli/perang harga antar Pengepul.</li>
+          
+          <li><b style="color:var(--purple);">My Profile:</b><br/>Pengaturan keamanan super penting. Salin Link Referral Anda, Atur Rekening Bank/DANA Anda (Wajib diisi jika ingin jualan di P2P), dan Atur <b>6-Digit PIN Transaksi</b>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: Liquidasi & P2P -->
+  <div id="modal-4" class="modal-overlay">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-money-bill-transfer" style="color:var(--purple);"></i> Liquidasi & Marketplace</h2>
+      <button class="btn-close" onclick="closeModal('modal-4')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <h4>Merubah Aset Digital Menjadi Cash</h4>
+      <p>Jika Developer tidak membayar, lalu bagaimana Miner mendapatkan uang tunai ke rekening bank mereka? Jawabannya ada pada siklus "Pabrik Token".</p>
+
+      <ul class="step-list">
+        <li>
+          <div class="step-num">1</div>
+          <div class="step-text"><b>Fase Konversi (Exchange):</b><br/>Saat koin VRSC Anda sudah banyak dan harga Live Price sedang tinggi, masuk ke menu <i>Wallet & Miner</i>, lalu klik <b>Exchange Coins to IDR</b>. Koin akan hangus dan berubah menjadi Saldo Rupiah (IDR Balance) permanen.</div>
+        </li>
+        <li>
+          <div class="step-num">2</div>
+          <div class="step-text"><b>Fase Pencetakan (Withdraw/Minting):</b><br/>Saldo Rupiah tidak bisa ditarik ke bank. Ia harus dibakar (Minting) untuk memproduksi benda yang sangat berharga: <b>Token Kunci 16 Digit</b>. Buka menu <i>Withdraw Balance</i>, pilih jenis token (REG/MINING), pilih nominal, masukkan PIN, dan sistem akan mengirimkan pesanan ke Pusat. Setelah di ACC Admin, Token akan masuk ke Stok Anda.</div>
+        </li>
+        <li>
+          <div class="step-num">3</div>
+          <div class="step-text"><b>Fase Penjualan (P2P):</b><br/>Sekarang Anda memiliki Token. Token ini adalah satu-satunya cara bagi pemain baru untuk mendaftar, atau pemain lama untuk upgrade mesin. <br/><br/>
+          Masuk ke menu <i>Beli Token P2P</i> (Bagian Permintaan Masuk). Tunggu ada member yang memesan Token Anda. Saat ada orderan, sistem akan menginstruksikan pembeli untuk <b>mentransfer Uang Tunai ASLI ke Rekening Bank/DANA Anda</b>. Setelah uang masuk, Anda klik "Confirm/Kirim Token". Uang 100% milik Anda tanpa potongan Admin!</div>
+        </li>
+      </ul>
+      
+      <div class="warning-box" style="border-color:var(--cyan); background:rgba(0,242,254,0.05);">
+        <i class="fa-solid fa-lightbulb" style="color:var(--cyan);"></i> <b>Kenapa sistem ini jenius?</b><br/>
+        Developer tidak terbebani kewajiban membayar withdraw yang biasanya menyebabkan bangkrut (Scam). Uang terus berputar di akar rumput. Nilai CIS tercipta dari tingginya "Demand" (kebutuhan) orang terhadap Token Aktivasi & Kecepatan. Selama komunitas berkembang, ekonomi CIS akan terus hidup!
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: Strategi Sultan -->
+  <div id="modal-5" class="modal-overlay">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-chess-knight" style="color:#3498db;"></i> Taktik Top 10 Sultan</h2>
+      <button class="btn-close" onclick="closeModal('modal-5')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <h4>Ubah Mentalitas: Dari Pekerja Menjadi Pemilik Lapak</h4>
+      <p>Jika Anda hanya menambang sendirian, Anda akan untung, tapi lambat. CIS dirancang bagi mereka yang berjiwa pengusaha. Jadilah Pengepul Token (Sultan)!</p>
+
+      <ul class="step-list">
+        <li>
+          <div class="step-num"><i class="fa-solid fa-crown"></i></div>
+          <div class="step-text"><b>Pahami Margin Eceran (Grosir vs Ecer)</b><br/>
+          Di menu "Harga Pasar", Anda akan melihat ada "Modal Cetak Pusat" dan "Harga Jual Pengepul". Contoh: Token dicetak dengan modal saldo Rp 10.000, namun dijual ke member baru seharga Rp 15.000 Tunai. Selisih Rp 5.000 adalah keuntungan bersih Anda sebagai Bandar.</div>
+        </li>
+        <li>
+          <div class="step-num"><i class="fa-solid fa-trophy"></i></div>
+          <div class="step-text"><b>Kuasai Papan Klasemen (Leaderboard)</b><br/>
+          Kunci keberhasilan adalah nama Anda harus nangkring di menu "Top 10 Sultan". Caranya? Timbun stok Token yang banyak di akun Anda. Pemain dari kota manapun yang kebingungan mencari Token, pasti akan membuka menu ini dan menekan tombol WhatsApp Anda! Anda akan kebanjiran transferan masuk setiap hari.</div>
+        </li>
+        <li>
+          <div class="step-num"><i class="fa-solid fa-network-wired"></i></div>
+          <div class="step-text"><b>Ekspansi Ring 1 & UMKM</b><br/>
+          Jangan simpan peluang ini sendiri. Buat grup WA khusus untuk referral Anda. Edukasi mereka. Bahkan, tawarkan pemuda-pemuda nongkrong di Warkop untuk ikut bergabung. Mereka cukup bayar uang fisik ke Anda, dan Anda mentransfer "Token" dari HP Anda ke HP mereka. Anda mencetak uang dari jalanan raya!</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MODAL 6: Keamanan & Risiko -->
+  <div id="modal-6" class="modal-overlay">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-shield-virus" style="color:var(--red);"></i> Sistem Keamanan & Risiko</h2>
+      <button class="btn-close" onclick="closeModal('modal-6')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <h4>Pertahanan Lapis Baja Ekosistem CIS</h4>
+      <p>CIS didesain dengan algoritma militer untuk menjaga stabilitas ekonomi dan memberantas <i>Cheater</i>. Jika Anda ingin selamat, patuhi aturan mainnya!</p>
+
+      <div class="warning-box">
+        <h4 style="color:var(--red); margin-top:0; border-bottom:1px dashed var(--red);"><i class="fa-solid fa-skull-crossbones"></i> PENYEBAB AKUN BANNED PERMANEN</h4>
+        <ul style="padding-left:15px; margin-bottom:0; color:#e2e8f0;">
+          <li><b>Manipulasi Waktu HP:</b> Sengaja memajukan Jam/Tanggal HP (Time Tweak) untuk mempercepat mining atau bypass waktu claim 1 jam.</li>
+          <li><b>Penggunaan Script/Auto-Clicker:</b> Mencoba membobol Firebase dengan injeksi kode dari luar.</li>
+          <li><b>Penipuan P2P:</b> Menekan tombol "Confirm Transfer" tapi nyatanya Anda tidak mengirimkan uang ke penjual, atau sebaliknya, tidak melepas token saat uang sudah masuk. Laporan dari member akan berujung Banned Seketika! Saldo hangus.</li>
+        </ul>
+      </div>
+
+      <ul class="step-list">
+        <li>
+          <div class="step-num"><i class="fa-solid fa-mobile-screen-button"></i></div>
+          <div class="step-text"><b>Device Lock Protocol</b><br/>
+          Akun Anda dikunci pada Perangkat (HP) tempat Anda pertama kali mengaktifkan Token REG. Jika Anda mencoba login di HP lain (Cloning), sistem akan mendeteksinya sebagai pencurian dan mengunci akses hingga Anda menginput Token Aktivasi baru.</div>
+        </li>
+        <li>
+          <div class="step-num"><i class="fa-solid fa-key"></i></div>
+          <div class="step-text"><b>6-Digit Security PIN</b><br/>
+          Password hanya untuk login. Namun untuk memindahkan aset (Withdraw & Kirim Token), sistem akan meminta 6-Digit PIN Transaksi. <b>JANGAN BERIKAN PIN INI KEPADA SIAPAPUN TERMASUK ADMIN.</b> Jika Token Anda diretas karena kelalaian PIN, Pusat tidak akan menggantinya!</div>
+        </li>
+        <li>
+          <div class="step-num"><i class="fa-solid fa-scale-unbalanced"></i></div>
+          <div class="step-text"><b>Risiko Fluktuasi Pasar Kripto</b><br/>
+          Layaknya kripto di dunia nyata, Harga Live Price VRSC akan selalu naik turun. Risiko terbesar penambang adalah salah momen saat menukar uang. Jadilah cerdas: Tahan koin saat harga hancur, dan segera <i>Exchange</i> saat layar menunjukkan harga hijau meroket!</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+<!-- MODAL 7: Arisan Estafet (P2P Booster) -->
+  <div id="modal-7" class="modal-overlay">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-people-arrows" style="color:var(--gold);"></i> 7. Taktik Arisan Estafet</h2>
+      <button class="btn-close" onclick="closeModal('modal-7')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <h4>Sistem Sirkular: Modal Kecil, Daya Beli Raksasa</h4>
+      <p>Sistem ini dirancang khusus untuk mengubah iuran ringan menjadi mesin pencetak uang secara estafet, tanpa membebani sistem pusat sedikit pun.</p>
+
+      <ul class="step-list">
+        <li>
+          <div class="step-num">1</div>
+          <div class="step-text"><b>Fondasi Dasar: Mekanisme Estafet</b><br/>
+          10 orang iuran Rp 100.000. Pemenang Ke-1 memborong Token dari Top Sultan. Bulan berikutnya, uang iuran diserahkan tunai ke Pemenang Ke-1 (sebagai pencairan), lalu Tokennya ditransfer utuh ke Pemenang Ke-2. <br/><br/><b style="color:var(--cyan);">Hasil:</b> Pemenang balik modal PLUS menggenggam untung bersih 30% dari hasil mining 30 hari!</div>
+        </li>
+        <li>
+          <div class="step-num">2</div>
+          <div class="step-text"><b>Mematahkan Kutukan Orang Ke-10</b><br/>
+          Takut orang terakhir zonk? Tidak akan! Keberhasilan Pemenang awal akan memicu FOMO dan <b>Pembelahan Sel (Cellular Splitting)</b>. Akan lahir banyak grup arisan baru. Saat giliran Orang Ke-10 tiba, saldonya akan langsung diserbu dan ludes dibeli oleh grup-grup baru yang haus akan Token Aktivasi!</div>
+        </li>
+        <li>
+          <div class="step-num">3</div>
+          <div class="step-text"><b>Jantung Ekosistem: Rotasi Mesin Jam Tangan</b><br/>
+          Mesin Sultan dibatasi ketat (Time-Decay) hanya 30 hari. Saat expired, mesin mati. Mereka dipaksa "Turun Tahta" dan harus membeli Token dari member di bawahnya. Ketergantungan menyilang (Atas butuh Bawah, Bawah butuh Atas) ini membuat perputaran P2P abadi seperti gir jam tangan mekanik.</div>
+        </li>
+      </ul>
+
+      <div class="highlight-box">
+        <h3 style="color:var(--cyan); margin-top:0;"><i class="fa-solid fa-hands-holding-child"></i> Katup Pengaman Ekosistem</h3>
+        <p style="margin-bottom:0;">Sistem dilengkapi katup pengaman etis. Member tanpa modal tetap bisa mengumpulkan nilai lewat tombol <i>Claim Freemium</i>. Terlebih lagi, setiap perputaran uang di ekosistem ini memiliki kebanggaan moral karena dikaitkan langsung dengan misi <b>Charity (Amal)</b> untuk merestorasi ketidakadilan finansial.</p>
+      </div>
+    </div>
+  </div>
+  
+  <script type='text/javascript'>
+    // Fungsi untuk membuka modal (Full Screen Popup)
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.style.display = 'flex';
+        // Mencegah body di background ikut ter-scroll
+        document.body.style.overflow = 'hidden'; 
+      }
+    }
+
+    // Fungsi untuk menutup modal
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.style.display = 'none';
+        // Mengembalikan fungsi scroll pada body
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Menutup modal jika klik di luar area konten (background gelap)
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal-overlay')) {
+        event.target.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+    }
   </script>
 </body>
 </html>
