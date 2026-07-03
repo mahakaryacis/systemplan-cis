@@ -199,6 +199,13 @@
         <h3>8. Panduan Registrasi</h3>
         <p>Langkah-langkah pendaftaran akun baru dari awal hingga siap menambang.</p>
       </div>
+
+    <!-- INI TOMBOL BARU UNTUK MODUL 9 -->
+      <div class='menu-card mc-4' onclick='openModal("modal-9")'>
+        <i class='fa-solid fa-gift menu-icon'></i>
+        <h3>9. Reward & Masa Inkubasi</h3>
+        <p>Rahasia memaksimalkan modal gratisan hingga 90 hari di awal peluncuran.</p>
+      </div>
       
     </div>
   </main>
@@ -511,6 +518,38 @@
       <div class="warning-box" style="border-color:var(--red); background:rgba(231,76,60,0.05);">
         <h4 style="color:var(--red); margin-top:0; border-bottom:1px dashed var(--red);"><i class="fa-solid fa-triangle-exclamation"></i> PENTING UNTUK MEMBER BARU</h4>
         <p style="margin-bottom:0;">Setelah mendaftar, akun Anda mungkin berada dalam status <b>Uji Coba (Free Claim)</b> atau layar terkunci meminta <b>Token Aktivasi</b>, tergantung pada kebijakan Promo Pusat yang sedang berlaku. Jika tombol START Mesin tidak bisa ditekan, silakan hubungi Sponsor Anda untuk membeli Token Aktivasi (REG).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 9: Reward & Masa Inkubasi -->
+  <div id="modal-9" class="modal-overlay">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-gift" style="color:var(--purple);"></i> 9. Reward & Masa Inkubasi</h2>
+      <button class="btn-close" onclick="closeModal('modal-9')"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <h4 style="color:var(--purple);">Berhasil Mendaftar? Inilah Senjata Pertama Anda!</h4>
+      <p>Bagi Anda yang bergabung di masa awal peluncuran (<i>Soft Launching</i>), Master Pusat memberikan keistimewaan berupa <b>Reward Aktivasi Akun</b> dan <b>Speed Mining Gratis</b> secara otomatis sebagai modal awal Anda.</p>
+
+      <ul class="step-list">
+        <li>
+          <div class="step-num" style="border-color:var(--purple); color:var(--purple);"><i class="fa-solid fa-hourglass-start"></i></div>
+          <div class="step-text"><b>Fase Awal: Modal Starter 30 Hari</b><br/>
+          Begitu Anda login, perhatikan indikator <i>Active Time Left</i> Anda. Sistem memberikan modal masa aktif awal selama 30 Hari agar Anda bisa langsung menekan tombol <b>START</b> dan mencoba mesin penambang (SCRYPT ENGINE) tanpa perlu mengeluarkan uang sepeser pun.</div>
+        </li>
+        <li>
+          <div class="step-num" style="border-color:var(--purple); color:var(--purple);"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="step-text"><b>Rahasia Upgrade Gratis ke 90 Hari!</b><br/>
+          Tertulis 30 hari di layar, tapi tahukah Anda bahwa masa gratis itu bisa diperpanjang menjadi 90 hari? Caranya sangat mudah: <b>Buktikan Bahwa Anda Adalah Manusia Aktif.</b> <br/><br/>
+          Sistem CIS memiliki algoritma yang memantau loyalitas. Jika Anda rajin membuka aplikasi dan menekan tombol <b>Claim Coins</b>, sistem akan secara acak menjatuhkan <i>Reward Event</i> di hari-hari tertentu. Reward ini berisi suntikan tambahan hari aktif! Jika Anda konsisten memungut reward ini, total masa aktif gratis Anda akan mencapai 3 Bulan penuh.</div>
+        </li>
+      </ul>
+
+      <div class="highlight-box" style="border-color:var(--cyan); background:rgba(0, 242, 254, 0.05);">
+        <h4 style="color:var(--cyan); margin-top:0; border-bottom:none;"><i class="fa-solid fa-robot"></i> Mengapa Dibuat Bertahap? (Filter Anti-Bot)</h4>
+        <p style="margin-bottom:0; color:#e2e8f0;">Banyak sistem kripto hancur karena "Akun Tuyul" atau Bot Script yang mendaftar massal untuk menyedot koin gratis lalu ditinggalkan begitu saja. Di CIS Protocol, kami hanya membangun ekosistem untuk <b>Komunitas Manusia yang Nyata</b>. <br/><br/>
+        Skema reward bertahap ini adalah filter alami. Hanya member yang sungguh-sungguh berpartisipasi dan menjaga ekosistem yang akan bertahan hingga bulan ke-3. Sebaliknya, akun palsu dan bot pemalas akan otomatis mati dan hangus di hari ke-30 karena tidak bisa mengumpulkan reward harian!</p>
       </div>
     </div>
   </div>
